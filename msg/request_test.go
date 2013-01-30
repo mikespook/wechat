@@ -6,7 +6,7 @@ import (
 )
 
 const (
-    TextCase = `<xml>
+    ReqTextCase = `<xml>
 <ToUserName><![CDATA[toUser]]></ToUserName>
 <FromUserName><![CDATA[fromUser]]></FromUserName>
 <CreateTime>1348831860</CreateTime>
@@ -14,7 +14,7 @@ const (
 <Content><![CDATA[this is a test]]></Content>
 </xml>`
 
-    LocationCase = `<xml>
+    ReqLocationCase = `<xml>
 <ToUserName><![CDATA[toUser]]></ToUserName>
 <FromUserName><![CDATA[fromUser]]></FromUserName>
 <CreateTime>1351776360</CreateTime>
@@ -25,7 +25,7 @@ const (
 <Label><![CDATA[位置信息]]></Label>
 </xml>`
 
-    ImageCase = `<xml>
+    ReqImageCase = `<xml>
 <ToUserName><![CDATA[toUser]]></ToUserName>
 <FromUserName><![CDATA[fromUser]]></FromUserName>
 <CreateTime>1348831860</CreateTime>
@@ -37,7 +37,7 @@ const (
 
 func TestRequestText(t *testing.T) {
     req := &Request{}
-    if err := Unmarshal([]byte(TextCase), req); err != nil {
+    if err := Unmarshal([]byte(ReqTextCase), req); err != nil {
         t.Error(err)
         return
     }
@@ -53,7 +53,7 @@ func TestRequestText(t *testing.T) {
 
 func TestRequestLocation(t *testing.T) {
     req := Request{}
-    if err := Unmarshal([]byte(LocationCase), &req); err != nil {
+    if err := Unmarshal([]byte(ReqLocationCase), &req); err != nil {
         t.Error(err)
         return
     }
@@ -69,7 +69,7 @@ func TestRequestLocation(t *testing.T) {
 
 func TestRequestImage(t *testing.T) {
     req := Request{}
-    if err := Unmarshal([]byte(ImageCase), &req); err != nil {
+    if err := Unmarshal([]byte(ReqImageCase), &req); err != nil {
         t.Error(err)
         return
     }
