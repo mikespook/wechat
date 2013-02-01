@@ -23,8 +23,8 @@ func Handle(w http.ResponseWriter, r *http.Request, h HandlerFunc) {
             w.WriteHeader(500)
             return
         }
-        wreq := &Request{}
-        if err = UnmarshalRequest(body, wreq); err != nil {
+        var wreq *Request
+        if wreq, err = DecodeRequest(body); err != nil {
             log.Error(err)
             w.WriteHeader(500)
             return
@@ -35,7 +35,7 @@ func Handle(w http.ResponseWriter, r *http.Request, h HandlerFunc) {
             w.WriteHeader(500)
             return
         }
-        data, err := MarshalResponse(*wresp)
+        data, err := wresp.Encode()
         if _, err := w.Write(data); err != nil {
             log.Error(err)
             w.WriteHeader(500)

@@ -35,9 +35,13 @@ const (
 
 )
 
+var (
+    req *Request
+    err error
+)
+
 func TestRequestText(t *testing.T) {
-    req := &Request{}
-    if err := Unmarshal([]byte(ReqTextCase), req); err != nil {
+    if req, err = DecodeRequest([]byte(ReqTextCase)); err != nil {
         t.Error(err)
         return
     }
@@ -52,8 +56,7 @@ func TestRequestText(t *testing.T) {
 }
 
 func TestRequestLocation(t *testing.T) {
-    req := Request{}
-    if err := Unmarshal([]byte(ReqLocationCase), &req); err != nil {
+    if req, err = DecodeRequest([]byte(ReqLocationCase)); err != nil {
         t.Error(err)
         return
     }
@@ -68,8 +71,7 @@ func TestRequestLocation(t *testing.T) {
 }
 
 func TestRequestImage(t *testing.T) {
-    req := Request{}
-    if err := Unmarshal([]byte(ReqImageCase), &req); err != nil {
+    if req, err = DecodeRequest([]byte(ReqImageCase)); err != nil {
         t.Error(err)
         return
     }

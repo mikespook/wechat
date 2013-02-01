@@ -13,9 +13,11 @@ type Request struct {
     Scale int
     Label string
     PicUrl string
+    MsgId int
 }
 
-func UnmarshalRequest(data []byte, req *Request) (err error) {
+func DecodeRequest(data []byte) (req *Request, err error) {
+    req = &Request{}
     if err = xml.Unmarshal(data, req); err != nil {
         return
     }

@@ -36,7 +36,7 @@ func TestResponseNews(t *testing.T) {
         },
         FuncFlag: 1,
     }
-    data, err := Marshal(*resp)
+    data, err := resp.Encode()
     if err != nil {
         t.Error(err)
         return
@@ -61,7 +61,7 @@ func TestResponseText(t *testing.T) {
             Content: "content",
         },
     }
-    data, err := Marshal(*resp)
+    data, err := resp.Encode()
     if err != nil {
         t.Error(err)
         return
