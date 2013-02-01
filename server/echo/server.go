@@ -48,6 +48,7 @@ func main() {
 
 func echo(w http.ResponseWriter, r *http.Request) {
     wechat.Handle(w, r, func(r *wechat.Request) (resp *wechat.Response, err error){
+        log.Messagef("ACCESS: %V", r)
         resp = wechat.NewResponse()
         resp.ToUserName = r.FromUserName
         resp.FromUserName = r.ToUserName

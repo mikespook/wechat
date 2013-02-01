@@ -42,6 +42,7 @@ func Handle(w http.ResponseWriter, r *http.Request, h HandlerFunc) {
         }
         return
     } else {
+        log.Debugf("%V", r)
         if Signature(Token, r.FormValue("timestamp"),
             r.FormValue("nonce")) == r.FormValue("signature") {
             w.Write([]byte(r.FormValue("echostr")))
