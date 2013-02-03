@@ -52,17 +52,6 @@ func Handle(w http.ResponseWriter, r *http.Request, h HandlerFunc) {
     }
 }
 
-/*
-func wechattest(r *msg.Request) (resp *msg.Response, err error) {
-    resp = NewResponse()
-    resp.ToUserName = r.ToUserName
-    resp.FromUserName = r.FromUserName
-    resp.MsgType = msg.Text
-    resp.Content = "Hello world"
-    return
-}
-*/
-
 func Signature(token, timestamp, nonce string) string {
     strs := sort.StringSlice{token, timestamp, nonce}
     sort.Strings(strs)
