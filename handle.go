@@ -1,6 +1,7 @@
 package wechat
 
 import (
+    "fmt"
     "sort"
     "net/http"
     "io/ioutil"
@@ -60,5 +61,5 @@ func Signature(token, timestamp, nonce string) string {
     }
     h := sha1.New()
     h.Write([]byte(str))
-    return string(h.Sum(nil))
+    return fmt.Sprintf("%x", h.Sum(nil))
 }

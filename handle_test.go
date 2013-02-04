@@ -10,7 +10,7 @@ const (
 
 func TestSignature(t *testing.T) {
     s := Signature("123", "456", "789")
-    if s ==  SING {
+    if s !=  SING {
         t.Errorf("Singature error: %s", s)
         return
     }
