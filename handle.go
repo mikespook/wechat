@@ -17,7 +17,7 @@ type HandlerFunc func(*Request)(*Response, error)
 
 func Handle(w http.ResponseWriter, r *http.Request, h HandlerFunc) {
     defer r.Body.Close()
-    if r.Method == "post" {
+    if r.Method == "POST" || r.Method == "post" {
         body, err := ioutil.ReadAll(r.Body)
         if err != nil {
             log.Error(err)
