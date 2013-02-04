@@ -42,7 +42,6 @@ func Handle(w http.ResponseWriter, r *http.Request, h HandlerFunc) {
         }
         return
     } else {
-        log.Debugf("%V", r)
         if Signature(Token, r.FormValue("timestamp"),
             r.FormValue("nonce")) == r.FormValue("signature") {
             w.Write([]byte(r.FormValue("echostr")))
@@ -51,17 +50,6 @@ func Handle(w http.ResponseWriter, r *http.Request, h HandlerFunc) {
         }
     }
 }
-
-/*
-func wechattest(r *msg.Request) (resp *msg.Response, err error) {
-    resp = NewResponse()
-    resp.ToUserName = r.ToUserName
-    resp.FromUserName = r.FromUserName
-    resp.MsgType = msg.Text
-    resp.Content = "Hello world"
-    return
-}
-*/
 
 func Signature(token, timestamp, nonce string) string {
     strs := sort.StringSlice{token, timestamp, nonce}
