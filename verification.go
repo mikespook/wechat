@@ -7,6 +7,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"sort"
 )
 
@@ -20,7 +21,7 @@ func Signature(token, timestamp, nonce string) string {
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
 
-const UrlToken = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential"
+const UrlToken = "https://api.weixin.qq.com/cgi-bin/token"
 
 func AccessToken(id, secret string) (string, int, error) {
 	// https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
@@ -28,10 +29,13 @@ func AccessToken(id, secret string) (string, int, error) {
 	if err != nil {
 		return "", 0, err
 	}
-	req.URL.Query().Add("appid", id)
-	req.URL.Query().Add("secret", secret)
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	values := url.Values{
+		"appid":      []string{id},
+		"secret":     []string{secret},
+		"grant_type": []string{"client_credential"},
+	}
+	req.URL.RawQuery = values.Encode()
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return "", 0, err
 	}
@@ -43,7 +47,7 @@ func AccessToken(id, secret string) (string, int, error) {
 		ErrCode     int    `json:"errcode"`
 		ErrMsg      string `json:"errmsg"`
 	}
-	if err := json.Unmarshal(body, data); err != nil {
+	if err := json.Unmarshal(body, &data); err != nil {
 		return "", 0, err
 	}
 	if data.ErrCode != 0 {
