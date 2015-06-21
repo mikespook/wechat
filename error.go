@@ -3,8 +3,8 @@ package wechat
 import "fmt"
 
 type Error struct {
-	Code int
-	Msg  string
+	Code int    `json:"errcode"`
+	Msg  string `json:"errmsg"`
 }
 
 func (err *Error) Error() string {
